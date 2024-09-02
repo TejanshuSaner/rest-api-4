@@ -34,6 +34,7 @@ const ConnectToMongo = async () => {
     try {
         await mongoose.connect(mongo_Uri).then(() => {
             console.log("connected to DB");
+        
             app.listen(PORT, () => {
                 console.log(`runing on ${PORT}`);
             });
@@ -54,7 +55,10 @@ ConnectToMongo();
 
 
 
-
+app.get('/',(req,res)=>{
+    res.send("Get request");
+    console.log("GET Request")
+})
 
 
 // app.post("/products", async (req, res) => {
@@ -85,8 +89,9 @@ app.post("/products", async (req, res) => {
 
 app.get("/products", async (req, res) => {
     try {
-        const product = await Product.find({})
-        res.status(200).json(product)
+        const product = await Product.find({});
+        res.status(200).json(product);
+      
     } catch (error) {
         res.status(500).json({ message: error.message })
 
